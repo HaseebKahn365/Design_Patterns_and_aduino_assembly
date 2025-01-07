@@ -14,8 +14,8 @@ void setup(){
 
   void loop(){
     led(1);
-    delay(200);
+    delay(100);
     led(0);
-    delay(200);
+    delay(100);
     
     }
