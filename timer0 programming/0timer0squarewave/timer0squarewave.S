@@ -19,7 +19,7 @@ DELAY:
     OUT TCNT0, R20
     
     LDI R20, 0x05
-    OUT TCCR0B, R20 // Set prescaler to 1024
+    OUT TCCR0, R20 // Set prescaler to 1024
 
 POLL:
     IN R20, TIFR0   
@@ -27,7 +27,7 @@ POLL:
     RJMP POLL
     
     LDI R20, 0x00
-    OUT TCCR0B, R20 
+    OUT TCCR0, R20 
     
     LDI R20, 0x01
     OUT TIFR0, R20  
