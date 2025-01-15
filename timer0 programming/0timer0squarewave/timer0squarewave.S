@@ -10,7 +10,7 @@ main:
 SQRWAVE:
     SBI PORTB, 5    
     RCALL DELAY     
-    CBI PORTB, 5    
+    CBI PORTB, 5  //clear bit immediate   
     RCALL DELAY     
     RJMP SQRWAVE
 

@@ -4,7 +4,7 @@ chronous operating mode, 8 data bits (character size), no parity, and 1 stop bit
 Enable both receive and transmit.
 
 
-//UMP1 = 0, UMP0 = 0 IN UCSRC FOR NO PARITY
+//Upm1 = 0, UPM0 = 0 IN UCSRC FOR NO PARITY
 //UMSEL = 0 IN UCSRC FOR ASYNCHRONOUS MODE
 //USBS = 0 FOR 1 STOP BIT IN UCSRC
 //UCSZ1 = 1, UCSZ0 = 1 FOR 8 BIT DATA
