@@ -20,6 +20,7 @@ abstract class CharacterBuilder {
   void setArmor(String armor);
   void setHealth(int health);
   void setSpecialAbility(String ability);
+  void anotherMethod();
   GameCharacter build();
 }
 
@@ -40,6 +41,8 @@ class WarriorBuilder implements CharacterBuilder {
   void setHealth(int health) => _health = health;
   @override
   void setSpecialAbility(String ability) => _specialAbility = ability;
+  @override
+  void anotherMethod() => print("Another method"); //this ensures that the changes are taken into account
 
   @override
   GameCharacter build() {
