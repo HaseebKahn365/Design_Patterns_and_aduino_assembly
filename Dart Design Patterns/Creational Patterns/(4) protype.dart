@@ -43,7 +43,7 @@ void main() {
 
   print(enemy.type == enemyClone.type); // true
   print(enemy.health == enemyClone.health); // true
-  print(enemy.attributes == enemyClone.attributes); // false
+  print(enemy.attributes == enemyClone.attributes); // false because the map is copied
 
   final powerUp = PowerUp('Shield', 30, {'strength': 10, 'duration': 30});
   final powerUpClone = powerUp.clone();

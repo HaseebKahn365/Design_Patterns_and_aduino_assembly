@@ -1,39 +1,41 @@
 // Target interface
-abstract class Charger {
-  void charge();
+abstract class Socket {
+  void providePower();
 }
 
-// Adaptee (incompatible interface)
-class LightningDevice {
-  void chargeWithLightning() {
-    print("Charging with Lightning cable...");
+// Adaptee (incompatible plug)
+class TwoPinPlug {
+  void useTwoPins() {
+    print("Using a two-pin plug for power...");
   }
 }
 
 // Adapter
-class LightningToUsbCAdapter implements Charger {
-  final LightningDevice device;
+class TwoPinToThreePinAdapter implements Socket {
+  final TwoPinPlug plug;
 
-  LightningToUsbCAdapter(this.device);
+  TwoPinToThreePinAdapter(this.plug);
 
   @override
-  void charge() {
-    print("Using adapter...");
-    device.chargeWithLightning();
+  void providePower() {
+    print("Adapter in use...");
+    plug.useTwoPins();
   }
 }
 
 // Client
-class ChargingStation {
-  void plugIn(Charger charger) {
-    charger.charge();
+class ThreePinSocket {
+  void plugIn(Socket socket) {
+    socket.providePower();
   }
 }
 
-void main() {
-  final lightningDevice = LightningDevice();
-  final adapter = LightningToUsbCAdapter(lightningDevice);
+//a socket has holes and a plug has pins, the adapter is used to connect the two pins to the three holes
 
-  final station = ChargingStation();
-  station.plugIn(adapter); // Output: Using adapter... Charging with Lightning cable...
+void main() {
+  final twoPinPlug = TwoPinPlug();
+  final adapter = TwoPinToThreePinAdapter(twoPinPlug);
+
+  final socket = ThreePinSocket();
+  socket.plugIn(adapter); // Output: Adapter in use... Using a two-pin plug for power...
 }
