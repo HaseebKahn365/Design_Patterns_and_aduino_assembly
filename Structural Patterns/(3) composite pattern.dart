@@ -31,7 +31,7 @@ class Folder extends FileSystemItem {
   void display(int depth) {
     print('${'  ' * depth}Folder: $name');
     for (var item in items) {
-      item.display(depth + 1);
+      item.display(depth + 1); //recursive for inner items
     }
   }
 }
