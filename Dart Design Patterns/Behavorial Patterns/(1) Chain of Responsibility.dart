@@ -58,9 +58,19 @@ void main() {
 
 /*
 Explanation:
-Abstraction (Shape): Represents the high-level concept of a shape.
-Implementor (DrawingStyle): Represents how the shapes are styled.
-Bridge: Connects shapes and styles so they can vary independently.
-Refined Abstractions (Circle, Square): Specific shapes.
-Concrete Implementors (SolidStyle, DashedStyle): Specific styles.
- */
+The Chain of Responsibility pattern is a behavioral design pattern that allows an object to pass a request along a chain of handlers.
+ Each handler in the chain decides either to process the request or to pass it along to the next handler in the chain.
+  In this example, we have three concrete handlers: AuthenticationHandler, LoggingHandler, and GameRuleHandler.
+    The AuthenticationHandler checks if the request is for authentication and processes it if it is.
+      If the request is not for authentication, it passes the request to the next handler in the chain.
+      The LoggingHandler logs the request and passes it along to the next handler.
+        The GameRuleHandler applies game rules for the "Attack" action and handles unknown requests.
+        The client code sets up the chain of handlers and tests it by sending different requests through the chain.
+
+Output:
+Authentication successful.
+Logging request: Authenticate
+Applying game rules for attack action.
+Logging request: Attack
+Unknown request: Defend
+*/
