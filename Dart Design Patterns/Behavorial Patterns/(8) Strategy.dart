@@ -36,7 +36,7 @@ class Animal {
 
   void setAttackStrategy(AttackStrategy strategy) {
     _attackStrategy = strategy;
-    print("$name is now using a new attack strategy.");
+    print("$name is now using a new attack strategy.${strategy.runtimeType}");
   }
 
   void performAttack() {

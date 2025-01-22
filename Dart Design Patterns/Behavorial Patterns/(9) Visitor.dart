@@ -1,115 +1,74 @@
-// Visitor Interface
-abstract class SpaceVisitor {
-  void visitPlanet(Planet planet);
-  void visitAsteroid(Asteroid asteroid);
-  void visitComet(Comet comet);
+// Elements
+abstract class DocumentElement {
+  void accept(DocumentVisitor visitor);
 }
 
-// Element Interface
-abstract class CelestialObject {
-  void accept(SpaceVisitor visitor);
-}
-
-// Concrete Element: Planet
-class Planet implements CelestialObject {
-  final String name;
-  final String atmosphereType;
-
-  Planet(this.name, this.atmosphereType);
+class TextElement implements DocumentElement {
+  final String text;
+  TextElement(this.text);
 
   @override
-  void accept(SpaceVisitor visitor) {
-    visitor.visitPlanet(this);
+  void accept(DocumentVisitor visitor) {
+    visitor.visitText(this);
   }
 }
 
-// Concrete Element: Asteroid
-class Asteroid implements CelestialObject {
-  final String composition;
-
-  Asteroid(this.composition);
+class ImageElement implements DocumentElement {
+  final String url;
+  ImageElement(this.url);
 
   @override
-  void accept(SpaceVisitor visitor) {
-    visitor.visitAsteroid(this);
+  void accept(DocumentVisitor visitor) {
+    visitor.visitImage(this);
   }
 }
 
-// Concrete Element: Comet
-class Comet implements CelestialObject {
-  final String tailLength;
+// Visitor
+abstract class DocumentVisitor {
+  void visitText(TextElement text);
+  void visitImage(ImageElement image);
+}
 
-  Comet(this.tailLength);
+// Concrete Visitors
+class PrintVisitor implements DocumentVisitor {
+  @override
+  void visitText(TextElement text) {
+    print('Printing text: ${text.text}');
+  }
 
   @override
-  void accept(SpaceVisitor visitor) {
-    visitor.visitComet(this);
+  void visitImage(ImageElement image) {
+    print('Printing image from: ${image.url}');
   }
 }
 
-// Concrete Visitor: Scientific Analysis Tool
-class ScienceTool implements SpaceVisitor {
+class ExportVisitor implements DocumentVisitor {
   @override
-  void visitPlanet(Planet planet) {
-    print("Analyzing Planet '${planet.name}' with ${planet.atmosphereType} atmosphere.");
+  void visitText(TextElement text) {
+    print('Exporting text as PDF: ${text.text}');
   }
 
   @override
-  void visitAsteroid(Asteroid asteroid) {
-    print("Examining asteroid composed of ${asteroid.composition}.");
-  }
-
-  @override
-  void visitComet(Comet comet) {
-    print("Studying comet with a tail length of ${comet.tailLength} km.");
-  }
-}
-
-// Concrete Visitor: Mining Tool
-class MiningTool implements SpaceVisitor {
-  @override
-  void visitPlanet(Planet planet) {
-    print("Surveying Planet '${planet.name}' for mining potential.");
-  }
-
-  @override
-  void visitAsteroid(Asteroid asteroid) {
-    print("Extracting minerals from an asteroid composed of ${asteroid.composition}.");
-  }
-
-  @override
-  void visitComet(Comet comet) {
-    print("Harvesting ice from a comet with a tail length of ${comet.tailLength} km.");
+  void visitImage(ImageElement image) {
+    print('Exporting image as PNG: ${image.url}');
   }
 }
 
 void main() {
-  // Create celestial objects
-  final earth = Planet("Earth", "Nitrogen-Oxygen");
-  final asteroid = Asteroid("Iron and Nickel");
-  final comet = Comet("1.5 million");
+  var document = [TextElement('Hello World'), ImageElement('photo.jpg')];
 
-  // Create tools (visitors)
-  final scienceTool = ScienceTool();
-  final miningTool = MiningTool();
+  var printer = PrintVisitor();
+  var exporter = ExportVisitor();
 
-  // Interact with celestial objects using different tools
-  print("Using the Science Tool:");
-  earth.accept(scienceTool);
-  asteroid.accept(scienceTool);
-  comet.accept(scienceTool);
+  // Print all elements
+  print('Printing document:');
+  for (var element in document) {
+    element.accept(printer);
+  }
 
-  print("\nUsing the Mining Tool:");
-  earth.accept(miningTool);
-  asteroid.accept(miningTool);
-  comet.accept(miningTool);
+  // Export all elements
+  print('\nExporting document:');
+  for (var element in document) {
+    element.accept(exporter);
+  }
 }
-
-/*
-Explanation:
-Visitor (SpaceVisitor): Defines operations for different celestial objects.
-Concrete Visitors (ScienceTool, MiningTool): Implement specific behaviors for interacting with celestial objects.
-Element Interface (CelestialObject): Allows objects to accept visitors.
-Concrete Elements (Planet, Asteroid, Comet): Implement accept method to work with visitors.
-This example depicts how astronauts interact with celestial objects using tools, demonstrating the Visitor Pattern.
-*/
